@@ -1,0 +1,609 @@
+app:
+  description: 用于提取关键帧并分析内容
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: fish_new
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1781574146370-source-1781574343024-target
+      source: '1781574146370'
+      sourceHandle: source
+      target: '1781574343024'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1781574343024-source-1781589292491-target
+      source: '1781574343024'
+      sourceHandle: source
+      target: '1781589292491'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1781589292491-source-1781590074487-target
+      selected: false
+      source: '1781589292491'
+      sourceHandle: source
+      target: '1781590074487'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1781590074487-source-1781590307321-target
+      source: '1781590074487'
+      sourceHandle: source
+      target: '1781590307321'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1781590307321-source-1781590496384-target
+      source: '1781590307321'
+      sourceHandle: source
+      target: '1781590496384'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1781590496384-source-1781590726683-target
+      source: '1781590496384'
+      sourceHandle: source
+      target: '1781590726683'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1781590726683-source-1781590779140-target
+      source: '1781590726683'
+      sourceHandle: source
+      target: '1781590779140'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: http-request
+      id: 1781590779140-source-1781590960273-target
+      source: '1781590779140'
+      sourceHandle: source
+      target: '1781590960273'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: end
+      id: 1781590960273-source-1781591035794-target
+      source: '1781590960273'
+      sourceHandle: source
+      target: '1781591035794'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - video
+          allowed_file_upload_methods:
+          - local_file
+          default: ''
+          hide: false
+          hint: ''
+          label: 视频
+          options: []
+          placeholder: ''
+          required: true
+          type: file
+          variable: video
+      height: 108
+      id: '1781574146370'
+      position:
+        x: 97.36098417845426
+        y: 295.91704746463733
+      positionAbsolute:
+        x: 97.36098417845426
+        y: 295.91704746463733
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-63
+            key: ''
+            type: text
+            value: "{\n  \"file_url\": \"{{#1781574146370.video.url#}}\"\n}"
+          type: raw-text
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 视频提取关键帧
+        type: http-request
+        url: http://ffmpeg-server:5002/extract
+        variables: []
+      height: 136
+      id: '1781574343024'
+      position:
+        x: 402
+        y: 288
+      positionAbsolute:
+        x: 402
+        y: 288
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import json\n\ndef main(http_body: str) -> dict:\n    if isinstance(http_body,\
+          \ str):\n        data = json.loads(http_body)\n    else:\n        data =\
+          \ http_body\n    shots = data.get(\"shots\", [])\n    return {\n       \
+          \ \"shots\": shots,\n    }"
+        code_language: python3
+        outputs:
+          shots:
+            children: null
+            type: array[object]
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 1000
+        selected: false
+        title: 解析并内嵌图片
+        type: code
+        variables:
+        - value_selector:
+          - '1781574343024'
+          - body
+          value_type: string
+          variable: http_body
+      height: 51
+      id: '1781589292491'
+      position:
+        x: 689.485412981498
+        y: 335.39015821545786
+      positionAbsolute:
+        x: 689.485412981498
+        y: 335.39015821545786
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-466
+            key: ''
+            type: text
+            value: "{\n  \"shots\": {{#1781589292491.shots#}}\n}"
+          type: json
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 5
+          retry_enabled: true
+          retry_interval: 2000
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 10
+          max_read_timeout: 60
+          max_write_timeout: 10
+        title: 生成分镜脚本
+        type: http-request
+        url: http://ffmpeg-server:5002/describe
+        variables: []
+      height: 136
+      id: '1781590074487'
+      position:
+        x: 63.87557119695606
+        y: 467
+      positionAbsolute:
+        x: 63.87557119695606
+        y: 467
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import json\n\ndef main(http_body: str) -> dict:\n    if isinstance(http_body,\
+          \ str):\n        data = json.loads(http_body)\n    else:\n        data =\
+          \ http_body\n\n    shots = data.get(\"shots\", [])\n    total_shots = len(shots)\n\
+          \n    def _fmt_time(t):\n        return str(int(t)) if t == int(t) else\
+          \ str(t)\n\n    lines = []\n    lines.append(f\"# 视频分镜脚本\\n\\n共 {total_shots}\
+          \ 个分镜\\n\")\n\n    for shot in shots:\n        desc = shot.get(\"description\"\
+          , {})\n        # 错误处理：如果 description 不是 dict，说明描述生成失败\n        if not isinstance(desc,\
+          \ dict):\n            desc = {}\n        sid = desc.get(\"shot_id\", shot.get(\"\
+          id\", \"?\"))\n        title = desc.get(\"title\", \"\")\n        sub =\
+          \ desc.get(\"subject\", \"（描述生成失败，请重试）\")\n        act = desc.get(\"action\"\
+          , \"\")\n        env = desc.get(\"environment\", \"\")\n        cam = desc.get(\"\
+          camera_movement\", \"固定\")\n        sty = desc.get(\"style\", \"\")\n  \
+          \      raw_desc = desc.get(\"description\", \"\")\n\n        tr_fmt = f\"\
+          {_fmt_time(shot['start_time'])}s-{_fmt_time(shot['end_time'])}s\"\n    \
+          \    if title:\n            lines.append(f\"## 分镜{sid:02d}:{title}({tr_fmt})\"\
+          )\n        else:\n            lines.append(f\"## 分镜{sid:02d}（{tr_fmt}）\"\
+          )\n        lines.append(\"\")\n        lines.append(f\"画面主体:{sub}\")\n \
+          \       if act:\n            lines.append(f\"动作:{act}\")\n        if env:\n\
+          \            lines.append(f\"环境:{env}\")\n        if cam:\n            lines.append(f\"\
+          运镜:{cam}\")\n        if sty:\n            lines.append(f\"风格控制:{sty}\")\n\
+          \        if raw_desc:\n            lines.append(\"\")\n            lines.append(raw_desc)\n\
+          \        img_url = shot.get(\"image_url\", \"\")\n        if img_url:\n\
+          \            # 将内网地址替换为浏览器可访问的地址\n            browser_url = img_url.replace(\"\
+          ffmpeg-server:5002\", \"localhost:5002\")\n            lines.append(\"\"\
+          )\n            lines.append(f\"![分镜{sid:02d}]({browser_url})\")\n      \
+          \  lines.append(\"\")\n        lines.append(\"---\")\n        lines.append(\"\
+          \")\n\n    markdown = \"\\n\".join(lines)\n\n    feishu_records = []\n \
+          \   for s in shots:\n        d = s.get(\"description\", {})\n        if\
+          \ not isinstance(d, dict):\n            d = {}\n        feishu_records.append({\n\
+          \            \"fields\": {\n                \"分镜编号\": f\"分镜{d.get('shot_id',\
+          \ s.get('id', 1)):02d}\",\n                \"时间范围\": d.get(\"time_range\"\
+          , f\"{s.get('start_time', '')}-{s.get('end_time', '')}\"),\n           \
+          \     \"画面主体\": d.get(\"subject\", \"（描述生成失败）\"),\n                \"动作\"\
+          : d.get(\"action\", \"\"),\n                \"环境\": d.get(\"environment\"\
+          , \"\"),\n                \"运镜\": d.get(\"camera_movement\", \"\"),\n  \
+          \              \"AI描述\": d.get(\"description\", \"\"),\n            }\n\
+          \        })\n\n    return {\n        \"markdown\": markdown,\n        \"\
+          total_shots\": total_shots,\n        \"warning\": data.get(\"warning\",\
+          \ \"\"),\n        \"feishu_body\": feishu_records,\n        \"shots\": shots,\n\
+          \    }"
+        code_language: python3
+        outputs:
+          feishu_body:
+            children: null
+            type: array[object]
+          markdown:
+            children: null
+            type: string
+          shots:
+            children: null
+            type: array[object]
+          total_shots:
+            children: null
+            type: number
+          warning:
+            children: null
+            type: string
+        selected: false
+        title: 格式化输出
+        type: code
+        variables:
+        - value_selector:
+          - '1781590074487'
+          - body
+          value_type: string
+          variable: http_body
+      height: 51
+      id: '1781590307321'
+      position:
+        x: 355.63901582154585
+        y: 505.26572941241386
+      positionAbsolute:
+        x: 355.63901582154585
+        y: 505.26572941241386
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1010
+            key: ''
+            type: text
+            value: "{\n  \"app_id\": \"cli_aaba1c53aef95cce\",\n  \"app_secret\":\
+              \ \"kYzsMxHA9fZfU2GAp6S6Z75eStMTy0Pz\"\n}"
+          type: raw-text
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 飞书获取AC
+        type: http-request
+        url: https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal
+        variables: []
+      height: 152
+      id: '1781590496384'
+      position:
+        x: 659.2780316430917
+        y: 477.5560632861831
+      positionAbsolute:
+        x: 659.2780316430917
+        y: 477.5560632861831
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        code: "import json\n\ndef main(http_body: str) -> dict:\n    if isinstance(http_body,\
+          \ str):\n        data = json.loads(http_body)\n    else:\n        data =\
+          \ http_body\n\n    return {\n        \"token\": data.get(\"tenant_access_token\"\
+          , \"\")\n    }"
+        code_language: python3
+        outputs:
+          token:
+            children: null
+            type: string
+        selected: false
+        title: 提取BODY
+        type: code
+        variables:
+        - value_selector:
+          - '1781590496384'
+          - body
+          value_type: string
+          variable: http_body
+      height: 51
+      id: '1781590726683'
+      position:
+        x: -26.721968356908405
+        y: 710.4608085201428
+      positionAbsolute:
+        x: -26.721968356908405
+        y: 710.4608085201428
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1178
+            key: ''
+            type: text
+            value: "{\n  \"shots\":{{#1781590307321.shots#}},\n  \"feishu\": {\n \
+              \   \"app_id\": \"cli_aaba1c53aef95cce\",\n    \"app_secret\": \"kYzsMxHA9fZfU2GAp6S6Z75eStMTy0Pz\"\
+              ,\n    \"app_token\": \"VEJVb41acaZtXRsU53cckP3Hnsg\",\n    \"table_id\"\
+              : \"tbliMJVIeu8TwiqA\"\n  }\n}"
+          type: json
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 飞书创建记录
+        type: http-request
+        url: http://ffmpeg-server:5002/feishu-create
+        variables: []
+      height: 136
+      id: '1781590779140'
+      position:
+        x: 263.7219683569084
+        y: 655.0414762676814
+      positionAbsolute:
+        x: 263.7219683569084
+        y: 655.0414762676814
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1457
+            key: ''
+            type: text
+            value: "{\n  \"shots\": {{#1781590307321.shots#}},\n  \"feishu\": {\n\
+              \    \"app_id\": \"cli_aaba1c53aef95cce\",\n    \"app_secret\": \"kYzsMxHA9fZfU2GAp6S6Z75eStMTy0Pz\"\
+              ,\n    \"app_token\": \"VEJVb41acaZtXRsU53cckP3Hnsg\",\n    \"table_id\"\
+              : \"tbliMJVIeu8TwiqA\",\n    \"img_field_id\": \"fldLugDvGy\"\n  }\n\
+              }"
+          type: json
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 同步图片到飞书
+        type: http-request
+        url: http://ffmpeg-server:5002/feishu
+        variables: []
+      height: 136
+      id: '1781590960273'
+      position:
+        x: 570
+        y: 669.5560632861832
+      positionAbsolute:
+        x: 570
+        y: 669.5560632861832
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        outputs:
+        - value_selector:
+          - '1781590307321'
+          - markdown
+          value_type: string
+          variable: result
+        - value_selector:
+          - '1781590307321'
+          - total_shots
+          value_type: number
+          variable: total_shots
+        - value_selector:
+          - '1781590307321'
+          - warning
+          value_type: string
+          variable: warning
+        - value_selector:
+          - '1781590307321'
+          - feishu_body
+          value_type: array[object]
+          variable: feishu_result
+        selected: false
+        title: 输出
+        type: end
+      height: 165
+      id: '1781591035794'
+      position:
+        x: 616.3349732208312
+        y: 862.2042182590257
+      positionAbsolute:
+        x: 616.3349732208312
+        y: 862.2042182590257
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: 264.08351215247
+      y: -79.45191703373007
+      zoom: 0.7578582832551991
+  rag_pipeline_variables: []
